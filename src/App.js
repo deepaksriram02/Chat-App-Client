@@ -4,7 +4,8 @@ import  io  from "socket.io-client"
 import {useEffect, useState} from 'react'
 
 
-const socket = io("http://localhost:3001")
+// const socket = io("http://localhost:3001")
+const socket =io("https://dpk-chat.herokuapp.com")
 
 
 function App() {
@@ -59,11 +60,13 @@ function App() {
         <div className='container'>
           <div className="heading">Chat App</div>
           <div className='inner-container'>
-            <input className="join-tb" type="text" placeholder="enter name" onChange={event=>{setUsername(event.target.value)}}></input>
+            <input className="join-tb" type="text" placeholder="enter name" value={username}onChange={
+              event=>{
+                setUsername(event.target.value)
+                event.preventDefault()}}></input>
             <div className='join-btn' onClick={()=>{setUser(username)}}>join</div>
           </div>
-          
-
+    
         </div>
       </div>
       
@@ -78,7 +81,10 @@ function App() {
       <div className="heading">Chat Room</div>
       <div className="msg-container">{displayMessages()}</div>
       <div className="tb-container">
-        <input className="msg-tb" type="text" placeholder="message.." onChange={event=>setMessage(event.target.value)}></input>
+        <input className="msg-tb" type="text" placeholder="message.." value={message} onChange={event=>{
+          event.preventDefault()
+          setMessage(event.target.value)
+        }}></input>
         <div className="msg-btn"onClick={sendMessage}>send</div>
       </div>
     </div>
